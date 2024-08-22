@@ -24,6 +24,9 @@
           <li class="nav-item">
             <a class="nav-link" th:href="@{/pacientes}">Pacientes</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/pacientes/create}">Nuevo Paciente</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -37,6 +40,7 @@
       <th scope="col" class="table-dark">Id</th>
       <th scope="col" class="table-dark">Nombre</th>
       <th scope="col" class="table-dark">Hospitalizado</th>
+      <th scope="col" class="table-dark">Eliminar</th>
     </tr>
     </thead>
     <tbody>
@@ -45,6 +49,14 @@
       <td th:text="${paciente.getNombre()}">Nombre</td>
       <td th:if="${paciente.isHospitalized()}">Hospitalizado</td>
       <td th:if="${!paciente.isHospitalized()}">No Hospitalizado</td>
+      <td class="d-flex">
+        <form method="get" action="pacientes/update">
+          <button type="submit" class="btn btn-primary" name="id" th:value="${paciente.getId()}">Actualizar</button>
+        </form>
+        <form method="post" action="pacientes/delete">
+          <button type="submit" class="btn btn-danger" name="id" th:value="${paciente.getId()}">Eliminar</button>
+        </form>
+      </td>
     </tr>
     </tbody>
   </table>

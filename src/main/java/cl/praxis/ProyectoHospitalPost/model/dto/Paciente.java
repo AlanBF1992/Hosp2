@@ -10,12 +10,6 @@ public class Paciente {
         this.isHospitalized = isHospitalized;
     }
 
-    public Paciente(int id, String nombre, boolean isHospitalized) {
-        this.id = id;
-        this.nombre = nombre;
-        this.isHospitalized = isHospitalized;
-    }
-
     public int getId() {
         return id;
     }

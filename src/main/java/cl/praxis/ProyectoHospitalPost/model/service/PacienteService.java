@@ -8,4 +8,7 @@ public interface PacienteService {
     List<Paciente> findAll();
     Paciente findById(int id);
     boolean save(Paciente paciente);
+    boolean update(Paciente paciente);
+    boolean delete(int id);
+
 }

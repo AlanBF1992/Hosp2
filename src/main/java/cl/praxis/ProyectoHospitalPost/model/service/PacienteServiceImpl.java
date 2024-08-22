@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Service
 public class PacienteServiceImpl implements PacienteService {
@@ -13,9 +14,9 @@ public class PacienteServiceImpl implements PacienteService {
 
     public PacienteServiceImpl() {
         pacientes = new ArrayList<Paciente>();
-        save(new Paciente(1, "Luis", true));
-        save(new Paciente(2, "María", false));
-        save(new Paciente(3, "Alejandra", true));
+        save(new Paciente("Luis", true));
+        save(new Paciente("María", false));
+        save(new Paciente("Alejandra", true));
     }
 
     @Override
@@ -25,7 +26,7 @@ public class PacienteServiceImpl implements PacienteService {
 
     @Override
     public Paciente findById(int id) {
-        return null;
+        return pacientes.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
     }
 
     @Override
@@ -39,5 +40,29 @@ public class PacienteServiceImpl implements PacienteService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public boolean update(Paciente paciente) {
+        System.out.println("El id es: " + paciente.getId());
+        int index = IntStream.range(0, pacientes.size()).filter(i -> pacientes.get(i).getId() == paciente.getId()).findFirst().orElse(-1);
+
+        System.out.println("El index es: " + index);
+        if (index == -1) {
+            return false;
+        }
+        pacientes.set(index, paciente);
+        return true;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        int index = IntStream.range(0, pacientes.size()).filter(i -> pacientes.get(i).getId() == id).findFirst().orElse(-1);
+
+        if (index == -1) {
+            return false;
+        }
+        pacientes.remove(index);
+        return true;
     }
 }
